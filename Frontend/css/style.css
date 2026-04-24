@@ -1,627 +1,733 @@
 /* ============================================================
-   StyleCast — Main Stylesheet
-   Aesthetic: Editorial Magazine meets Natural Warmth
-   Fonts: Playfair Display (headlines) + DM Sans (body)
+   WARDROBE — Complete Redesign
+   Aesthetic: Warm Earthy / Split Layout / Editorial
+   Fonts: Cormorant Garamond (display) + Outfit (UI)
+   Palette: Sand, Terracotta, Olive, Warm Cream, Deep Umber
    ============================================================ */
 
-/* ---- CSS VARIABLES (Design Tokens) ---- */
 :root {
-  --bg-main: #faf7f2;          /* Warm off-white background */
-  --bg-card: #ffffff;
-  --bg-hero: #1a1a2e;          /* Deep navy for hero */
+  /* Core Palette */
+  --sand:        #e8dcc8;
+  --sand-light:  #f5f0e8;
+  --sand-dark:   #d4c5a9;
+  --cream:       #faf6ef;
+  --terracotta:  #b85c38;
+  --terra-light: #d4744f;
+  --terra-dark:  #8a3f22;
+  --olive:       #6b7c45;
+  --olive-light: #8a9e5c;
+  --olive-dark:  #4e5c32;
+  --umber:       #2c1f14;
+  --umber-mid:   #4a3728;
+  --umber-light: #7a5c45;
+  --warm-white:  #fdfaf5;
 
-  --text-primary: #1c1c1e;
-  --text-secondary: #6b6b6b;
-  --text-muted: #9e9e9e;
-  --text-light: #ffffff;
+  /* Semantic */
+  --left-bg:     #1e140d;    /* very dark warm brown for left panel */
+  --left-text:   #e8dcc8;    /* sand on dark */
+  --right-bg:    #faf6ef;    /* warm cream for right panel */
 
-  --accent-warm: #c9764c;      /* Terracotta orange */
-  --accent-cool: #4a7fa5;      /* Slate blue */
-  --accent-gold: #d4a843;      /* Warm gold */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui:      'Outfit', system-ui, sans-serif;
 
-  --border: #e8e2d9;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-  --shadow-md: 0 8px 30px rgba(0,0,0,0.10);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
-
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ---- RESET & BASE ---- */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  line-height: 1.6;
-  min-height: 100vh;
-}
+/* ---- RESET ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: var(--font-ui); background: var(--right-bg); }
 
 /* ============================================================
-   HERO / HEADER SECTION
+   SPLIT LAYOUT
    ============================================================ */
-.hero {
-  position: relative;
-  background: var(--bg-hero);
-  padding: 70px 24px 90px;
+.split-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
-  text-align: center;
 }
 
-/* Animated gradient blobs in background */
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
-  animation: blobDrift 12s ease-in-out infinite alternate;
-}
-
-.blob-1 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, #c9764c, #8b3a3a);
-  top: -100px; left: -100px;
-  animation-delay: 0s;
-}
-
-.blob-2 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, #4a7fa5, #2c3e7a);
-  bottom: -80px; right: -80px;
-  animation-delay: -4s;
-}
-
-.blob-3 {
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, #d4a843, #c9764c);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation-delay: -8s;
-}
-
-@keyframes blobDrift {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(20px, -20px) scale(1.05); }
-  100% { transform: translate(-10px, 15px) scale(0.97); }
-}
-
-.hero-content {
+/* ============================================================
+   LEFT PANEL
+   ============================================================ */
+.left-panel {
+  width: 360px;
+  min-width: 360px;
+  background: var(--left-bg);
+  color: var(--left-text);
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px;
   position: relative;
-  z-index: 2;
-  max-width: 600px;
-  margin: 0 auto;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
+.left-panel::-webkit-scrollbar { display: none; }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 28px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 8px 18px;
-  border-radius: 100px;
-}
-
-.logo-icon {
-  font-size: 1.4rem;
-}
-
-.logo-text {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 0.5px;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 3.8rem);
-  font-weight: 900;
-  color: white;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.hero-title em {
-  color: var(--accent-gold);
-  font-style: italic;
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.65);
-  max-width: 420px;
-  margin: 0 auto;
-  font-weight: 300;
-}
-
-/* ============================================================
-   MAIN CONTAINER
-   ============================================================ */
-.main-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px 60px;
-}
-
-/* ============================================================
-   INPUT SECTION
-   ============================================================ */
-.input-section {
-  margin-top: -40px; /* Overlap with hero */
-}
-
-.section-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
-}
-
-.input-group {
-  margin-bottom: 28px;
-}
-
-.input-label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-}
-
-/* City search row */
-.search-row {
-  display: flex;
-  gap: 10px;
-}
-
-.city-input {
-  flex: 1;
-  padding: 14px 18px;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--text-primary);
-  background: var(--bg-main);
-  transition: var(--transition);
-  outline: none;
-}
-
-.city-input:focus {
-  border-color: var(--accent-warm);
-  background: white;
-  box-shadow: 0 0 0 3px rgba(201, 118, 76, 0.12);
-}
-
-.city-input::placeholder {
-  color: var(--text-muted);
-}
-
-.btn-location {
-  padding: 14px 18px;
-  background: transparent;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  transition: var(--transition);
-}
-
-.btn-location:hover {
-  border-color: var(--accent-cool);
-  color: var(--accent-cool);
-  background: rgba(74, 127, 165, 0.06);
-}
-
-/* Style / Gender Pills */
-.style-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pill {
-  padding: 9px 18px;
-  border: 2px solid var(--border);
-  border-radius: 100px;
-  background: transparent;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--text-secondary);
-  transition: var(--transition);
-}
-
-.pill:hover {
-  border-color: var(--accent-warm);
-  color: var(--accent-warm);
-}
-
-.pill.active {
-  background: var(--accent-warm);
-  border-color: var(--accent-warm);
-  color: white;
-}
-
-/* Primary CTA Button */
-.btn-primary {
-  width: 100%;
-  padding: 16px 24px;
-  background: linear-gradient(135deg, var(--accent-warm), #a0522d);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  margin-top: 8px;
-  letter-spacing: 0.3px;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(201, 118, 76, 0.40);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-primary:disabled {
+/* Subtle grain texture using SVG noise */
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px;
+  pointer-events: none;
+  z-index: 0;
   opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
 }
 
-/* ============================================================
-   ERROR BANNER
-   ============================================================ */
-.error-banner {
+/* Everything inside left panel sits above grain */
+.left-panel > *:not(.grain) { position: relative; z-index: 1; }
+
+/* ---- BRAND ---- */
+.brand {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #fff0f0;
-  border: 1px solid #f5c6c6;
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  margin-top: 16px;
-  color: #c0392b;
-  font-size: 0.95rem;
+  gap: 12px;
+  margin-bottom: 36px;
 }
 
-.error-banner button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #c0392b;
-  font-size: 1.1rem;
-  padding: 0 4px;
-}
-
-/* ============================================================
-   WEATHER CARD
-   ============================================================ */
-.weather-section {
-  margin-top: 24px;
-  animation: fadeSlideUp 0.5s ease both;
-}
-
-.weather-card {
-  background: linear-gradient(135deg, #1a1a2e 0%, #2c3e7a 100%);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  color: white;
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--terracotta);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  box-shadow: var(--shadow-lg);
-}
-
-.weather-left {
-  flex: 1;
-}
-
-.weather-city {
-  font-size: 1.1rem;
-  font-weight: 500;
-  opacity: 0.75;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-}
-
-.weather-temp {
+  justify-content: center;
   font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1;
-  margin-bottom: 8px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--warm-white);
+  letter-spacing: -1px;
+  flex-shrink: 0;
 }
 
-.weather-desc {
-  font-size: 1rem;
-  opacity: 0.8;
-  text-transform: capitalize;
-  margin-bottom: 6px;
-}
-
-.weather-season {
-  display: inline-block;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 4px 12px;
-  border-radius: 100px;
-  font-size: 0.82rem;
-  font-weight: 500;
-}
-
-.weather-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 16px;
-}
-
-.weather-icon-img {
-  width: 90px;
-  height: 90px;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
-}
-
-.weather-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: right;
-}
-
-.stat {
+.brand-info {
   display: flex;
   flex-direction: column;
   gap: 1px;
 }
 
-.stat-label {
-  font-size: 0.72rem;
-  opacity: 0.55;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-.stat-value {
-  font-size: 0.95rem;
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
   font-weight: 600;
+  color: var(--sand);
+  line-height: 1;
+  letter-spacing: 0.3px;
 }
 
-/* Humidity Tip */
-.humidity-tip {
-  margin-top: 12px;
-  background: rgba(212, 168, 67, 0.12);
-  border: 1px solid rgba(212, 168, 67, 0.35);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  font-size: 0.9rem;
-  color: #8a6a00;
+.brand-tag {
+  font-size: 0.7rem;
+  color: var(--umber-light);
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
-/* ============================================================
-   OUTFIT SUGGESTIONS
-   ============================================================ */
-.outfits-section {
-  margin-top: 36px;
-  animation: fadeSlideUp 0.6s ease 0.15s both;
+/* ---- LIVE TEMP DISPLAY ---- */
+.live-temp-display {
+  margin-bottom: 28px;
 }
 
-.section-header {
+.live-temp-row {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.live-temp-number {
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  font-weight: 300;
+  color: var(--sand);
+  line-height: 0.9;
+  letter-spacing: -3px;
+}
+
+.live-temp-unit {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--umber-light);
+  margin-top: 10px;
+  margin-left: 4px;
+}
+
+.live-temp-city {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--umber-light);
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* ---- DIVIDER ---- */
+.panel-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--umber-mid);
+  margin-bottom: 28px;
+}
+
+/* ---- FIELD GROUPS ---- */
+.field-group {
   margin-bottom: 24px;
 }
 
-.section-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.section-sub {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-/* Outfit Grid: 2 columns on desktop, 1 on mobile */
-.outfit-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* Individual Outfit Card */
-.outfit-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  padding: 28px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-  animation: fadeSlideUp 0.5s ease both;
-}
-
-/* Colored left accent bar */
-.outfit-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 5px;
-  background: var(--card-color, var(--accent-warm));
-  border-radius: 5px 0 0 5px;
-}
-
-.outfit-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.outfit-icon {
-  font-size: 2.8rem;
-  margin-bottom: 14px;
+.field-label {
   display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--umber-light);
+  margin-bottom: 10px;
 }
 
-.outfit-name {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: var(--text-primary);
+/* ---- CITY INPUT ---- */
+.input-row {
+  display: flex;
+  gap: 8px;
 }
 
-/* List of clothing items */
-.outfit-items {
-  list-style: none;
-  margin-bottom: 16px;
+.text-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--sand);
+  outline: none;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
 }
 
-.outfit-items li {
+.text-input::placeholder { color: var(--umber-mid); }
+
+.text-input:focus {
+  border-color: rgba(184, 92, 56, 0.5);
+  background: rgba(255,255,255,0.07);
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: var(--umber-light);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 0;
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  border-bottom: 1px dashed var(--border);
-}
-
-.outfit-items li:last-child {
-  border-bottom: none;
-}
-
-.outfit-items li::before {
-  content: '·';
-  color: var(--card-color, var(--accent-warm));
-  font-size: 1.5rem;
-  line-height: 0;
+  justify-content: center;
+  transition: all 0.2s var(--ease);
   flex-shrink: 0;
 }
 
-/* Style Tip at bottom of card */
-.outfit-tip {
-  background: #faf7f2;
-  border-radius: var(--radius-sm);
+.icon-btn:hover {
+  background: rgba(184, 92, 56, 0.2);
+  border-color: rgba(184, 92, 56, 0.4);
+  color: var(--terra-light);
+}
+
+/* ---- STYLE GRID ---- */
+.style-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.style-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
   padding: 10px 14px;
-  font-size: 0.83rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  border-left: 3px solid var(--card-color, var(--accent-warm));
+  color: var(--umber-light);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s var(--ease);
+  text-align: left;
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
+.style-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--sand);
 }
 
-.footer-note {
-  margin-top: 6px;
-  font-size: 0.78rem;
+.style-btn.active {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--warm-white);
+}
+
+/* Small decorative bullet inside style btn */
+.sbullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
   opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.style-btn.active .sbullet { opacity: 1; background: rgba(255,255,255,0.7); }
+
+/* ---- SEGMENTED CONTROL ---- */
+.seg-control {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.seg-btn {
+  flex: 1;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--umber-light);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.seg-btn:hover { color: var(--sand); }
+
+.seg-btn.active {
+  background: rgba(255,255,255,0.1);
+  color: var(--sand);
+}
+
+/* ---- CTA BUTTON ---- */
+.cta-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--terracotta);
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--warm-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  transition: all 0.25s var(--ease);
+  letter-spacing: 0.2px;
+}
+
+.cta-btn:hover {
+  background: var(--terra-light);
+  transform: translateY(-1px);
+}
+
+.cta-btn:active { transform: translateY(0); }
+.cta-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.cta-arrow { flex-shrink: 0; }
+
+/* ---- ERROR ---- */
+.error-msg {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(184, 92, 56, 0.15);
+  border: 1px solid rgba(184, 92, 56, 0.3);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: var(--terra-light);
+  line-height: 1.5;
+}
+
+/* ---- FOOTER ---- */
+.panel-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.68rem;
+  color: var(--umber-mid);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
 
 /* ============================================================
-   ANIMATIONS
+   RIGHT PANEL
    ============================================================ */
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.right-panel {
+  flex: 1;
+  background: var(--right-bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 48px 52px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sand-dark) transparent;
 }
 
-/* Staggered animation for outfit cards */
+.right-panel::-webkit-scrollbar { width: 5px; }
+.right-panel::-webkit-scrollbar-track { background: transparent; }
+.right-panel::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 10px; }
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.empty-rings {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 8px;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.r1 { width: 160px; height: 160px; border-color: var(--sand); animation-delay: 0s; opacity: 0.3; }
+.r2 { width: 110px; height: 110px; border-color: var(--sand-dark); animation-delay: 0.4s; opacity: 0.5; }
+.r3 { width: 68px; height: 68px; background: var(--sand); border-color: var(--sand); animation-delay: 0.8s; }
+
+.ring-label {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--umber-light);
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.r3 { animation: none; opacity: 1; }
+
+.empty-headline {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--umber);
+  font-style: italic;
+}
+
+.empty-sub {
+  font-size: 0.9rem;
+  color: var(--umber-light);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ============================================================
+   WEATHER STRIP
+   ============================================================ */
+.results-wrap {
+  animation: fadeUp 0.45s var(--ease) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.weather-strip {
+  background: var(--umber);
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 16px;
+  color: var(--sand);
+}
+
+.ws-left { flex: 1; }
+
+.ws-condition {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--sand);
+  margin-bottom: 4px;
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+.ws-location {
+  font-size: 0.78rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--umber-light);
+  margin-bottom: 14px;
+}
+
+.ws-season {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--sand-dark);
+}
+
+.ws-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.ws-icon {
+  width: 80px;
+  height: 80px;
+  filter: brightness(0.9) sepia(0.3);
+}
+
+.ws-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.ws-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.wsl {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--umber-light);
+}
+
+.wsv {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--sand);
+}
+
+/* ---- TIP BAR ---- */
+.tip-bar {
+  background: #f5ede0;
+  border: 1px solid var(--sand-dark);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 0.85rem;
+  color: var(--umber-mid);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   OUTFITS SECTION
+   ============================================================ */
+.outfits-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+  margin-top: 8px;
+}
+
+.oh-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--umber);
+  line-height: 1;
+}
+
+.oh-sub {
+  font-size: 0.82rem;
+  color: var(--umber-light);
+  letter-spacing: 0.5px;
+  font-weight: 300;
+}
+
+/* ---- OUTFIT GRID ---- */
+.outfits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* ---- OUTFIT CARD ---- */
+.outfit-card {
+  background: var(--warm-white);
+  border: 1px solid var(--sand);
+  border-radius: 14px;
+  padding: 26px;
+  position: relative;
+  transition: all 0.25s var(--ease);
+  animation: fadeUp 0.4s var(--ease) both;
+  overflow: hidden;
+}
+
+/* Top color accent strip */
+.outfit-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--terracotta));
+  border-radius: 14px 14px 0 0;
+}
+
+.outfit-card:hover {
+  border-color: var(--sand-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(44, 31, 20, 0.08);
+}
+
+.card-emoji {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.card-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--umber);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+/* Items list */
+.card-items {
+  list-style: none;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.card-items li {
+  font-size: 0.87rem;
+  color: var(--umber-mid);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--sand);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.card-items li:last-child { border-bottom: none; }
+
+/* Dot accent before each item */
+.card-items li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--card-accent, var(--terracotta));
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Tip at bottom */
+.card-tip {
+  font-size: 0.8rem;
+  color: var(--umber-light);
+  font-style: italic;
+  font-family: var(--font-display);
+  line-height: 1.5;
+  padding-top: 4px;
+  font-weight: 300;
+}
+
+/* Stagger card animations */
 .outfit-card:nth-child(1) { animation-delay: 0.05s; }
-.outfit-card:nth-child(2) { animation-delay: 0.15s; }
-.outfit-card:nth-child(3) { animation-delay: 0.25s; }
-.outfit-card:nth-child(4) { animation-delay: 0.35s; }
+.outfit-card:nth-child(2) { animation-delay: 0.12s; }
+.outfit-card:nth-child(3) { animation-delay: 0.19s; }
+.outfit-card:nth-child(4) { animation-delay: 0.26s; }
 
 /* ============================================================
-   RESPONSIVE — Mobile first adjustments
+   RESPONSIVE — Collapse split on mobile
    ============================================================ */
-@media (max-width: 600px) {
-  .section-card {
-    padding: 24px 20px;
-  }
+@media (max-width: 768px) {
+  html, body { overflow: auto; }
 
-  .search-row {
+  .split-layout {
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
 
-  .weather-card {
+  .left-panel {
+    width: 100%;
+    min-width: unset;
+    overflow: visible;
+  }
+
+  .right-panel {
+    padding: 32px 24px;
+    overflow: visible;
+  }
+
+  .empty-state {
+    min-height: 300px;
+    height: auto;
+    padding: 40px 0;
+  }
+
+  .weather-strip {
     flex-direction: column;
-    text-align: center;
-    padding: 24px;
+    align-items: flex-start;
+    gap: 16px;
   }
 
-  .weather-right {
-    align-items: center;
-  }
-
-  .weather-stats {
+  .ws-right {
+    align-items: flex-start;
     flex-direction: row;
     gap: 20px;
-    text-align: center;
   }
 
-  .stat {
-    align-items: center;
+  .ws-stats {
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
-  .outfit-grid {
-    grid-template-columns: 1fr;
-  }
+  .ws-stat { align-items: flex-start; }
 }
