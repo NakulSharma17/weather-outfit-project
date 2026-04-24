@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StyleCast — Weather-Based Outfit Planner</title>
+
+    <!-- Google Fonts: Playfair Display (display) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ========================================================
+         HEADER / HERO SECTION
+    ======================================================== -->
+    <header class="hero">
+      <!-- Animated background blobs -->
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+
+      <div class="hero-content">
+        <div class="logo">
+          <span class="logo-icon">🌤️</span>
+          <span class="logo-text">StyleCast</span>
+        </div>
+        <h1 class="hero-title">
+          Dress for the<br />
+          <em>weather outside</em>
+        </h1>
+        <p class="hero-subtitle">
+          Real-time outfit suggestions based on today's weather & your personal style.
+        </p>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         MAIN CONTENT
+    ======================================================== -->
+    <main class="main-container">
+
+      <!-- SECTION 1: User Input (City + Preferences) -->
+      <section class="input-section" id="inputSection">
+        <div class="section-card">
+
+          <!-- City Search Row -->
+          <div class="input-group">
+            <label class="input-label">📍 Your City</label>
+            <div class="search-row">
+              <input
+                type="text"
+                id="cityInput"
+                class="city-input"
+                placeholder="Enter city name (e.g. Mumbai, London...)"
+                autocomplete="off"
+              />
+              <button class="btn-location" id="locationBtn" title="Use my current location">
+                📡 Use Location
+              </button>
+            </div>
+          </div>
+
+          <!-- Style Preference Row -->
+          <div class="input-group">
+            <label class="input-label">👗 Your Style</label>
+            <div class="style-pills" id="stylePills">
+              <button class="pill active" data-style="casual">😎 Casual</button>
+              <button class="pill" data-style="formal">👔 Formal</button>
+              <button class="pill" data-style="sporty">🏋️ Sporty</button>
+              <button class="pill" data-style="streetwear">🔥 Streetwear</button>
+            </div>
+          </div>
+
+          <!-- Gender Preference Row -->
+          <div class="input-group">
+            <label class="input-label">👤 Preference</label>
+            <div class="style-pills" id="genderPills">
+              <button class="pill active" data-gender="unisex">🌈 Unisex</button>
+              <button class="pill" data-gender="male">🚹 Menswear</button>
+              <button class="pill" data-gender="female">🚺 Womenswear</button>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn-primary" id="getOutfitsBtn">
+            <span class="btn-text">✨ Get My Outfit</span>
+            <span class="btn-loader" style="display: none">⏳ Loading...</span>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- SECTION 2: Error Message -->
+      <div class="error-banner" id="errorBanner" style="display: none">
+        <span id="errorText">Something went wrong.</span>
+        <button onclick="hideError()">✕</button>
+      </div>
+
+      <!-- SECTION 3: Weather Info Display -->
+      <section class="weather-section" id="weatherSection" style="display: none">
+        <div class="weather-card">
+          <div class="weather-left">
+            <div class="weather-city" id="weatherCity">London, GB</div>
+            <div class="weather-temp" id="weatherTemp">22°C</div>
+            <div class="weather-desc" id="weatherDesc">Partly cloudy</div>
+            <div class="weather-season" id="weatherSeason">🍂 Autumn</div>
+          </div>
+          <div class="weather-right">
+            <img id="weatherIcon" src="" alt="Weather icon" class="weather-icon-img" />
+            <div class="weather-stats">
+              <div class="stat">
+                <span class="stat-label">Feels like</span>
+                <span class="stat-value" id="feelsLike">—</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Humidity</span>
+                <span class="stat-value" id="humidity">—</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Wind</span>
+                <span class="stat-value" id="windSpeed">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Humidity tip (conditionally shown) -->
+        <div class="humidity-tip" id="humidityTip" style="display: none"></div>
+      </section>
+
+      <!-- SECTION 4: Outfit Suggestions -->
+      <section class="outfits-section" id="outfitsSection" style="display: none">
+        <div class="section-header">
+          <h2 class="section-title">Today's Outfit Picks</h2>
+          <p class="section-sub" id="outfitSubtitle">Curated for your style & the weather</p>
+        </div>
+
+        <!-- Outfit cards are inserted here by JavaScript -->
+        <div class="outfit-grid" id="outfitGrid"></div>
+      </section>
+
+    </main>
+
+    <!-- ========================================================
+         FOOTER
+    ======================================================== -->
+    <footer class="footer">
+      <p>StyleCast — Dress smart, every day. 🌍</p>
+      <p class="footer-note">Weather data from OpenWeather API</p>
+    </footer>
+
+    <!-- Main JavaScript file -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
