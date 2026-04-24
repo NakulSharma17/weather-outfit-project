@@ -1,6 +1,6 @@
 // js/app.js — Wardrobe frontend logic (redesigned)
 
-const API_BASE_URL = "https://weather-outfit-backend.onrender.com/api";
+const API_BASE_URL = "https://weather-outfit-project.onrender.com/api";
 
 // ---- Session ID ----
 function getOrCreateSessionId() {
