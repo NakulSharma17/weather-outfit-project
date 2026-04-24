@@ -21,7 +21,11 @@ const PORT = process.env.PORT || 5000;
 // Allow requests from the frontend (CORS = Cross-Origin Resource Sharing)
 app.use(
   cors({
-    origin: "*", // In production, replace with your frontend URL
+    origin: [
+      "https://weather-outfit-project.vercel.app",
+      "http://localhost:5000",
+      "http://localhost:3000"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
@@ -34,9 +38,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend files from the frontend folder
-// This lets us serve index.html when visiting http://localhost:5000
+
 const path = require("path");
-app.use(express.static(path.join(__dirname, "../frontend")));
+
 
 // ============================================================
 // ROUTES
@@ -45,8 +49,9 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.use("/api", apiRoutes);
 
 // Catch-all route: serve index.html for any non-API route
+// Catch-all for undefined routes
 app.get("/{*path}", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.json({ message: "API is running. Frontend is on Vercel." });
 });
 
 // ============================================================
