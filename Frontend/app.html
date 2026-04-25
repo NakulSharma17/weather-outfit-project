@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wardrobe — Dress for the Day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <div class="split-layout">
+
+      <!-- LEFT PANEL -->
+      <aside class="left-panel">
+        <div class="grain"></div>
+
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div class="brand-info">
+            <span class="brand-name">Wardrobe</span>
+            <span class="brand-tag">dress for the day</span>
+          </div>
+        </div>
+
+        <div class="live-temp-display">
+          <div class="live-temp-row">
+            <span class="live-temp-number" id="liveTempNumber">--</span>
+            <span class="live-temp-unit">°C</span>
+          </div>
+          <span class="live-temp-city" id="liveTempCity">your city</span>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="field-group">
+          <label class="field-label">Location</label>
+          <div class="input-row">
+            <input type="text" id="cityInput" class="text-input" placeholder="Enter city name..." autocomplete="off" />
+            <button class="icon-btn" id="locationBtn" title="Use GPS">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Your Style</label>
+          <div class="style-grid" id="stylePills">
+            <button class="style-btn active" data-style="casual"><span class="sbullet"></span>Casual</button>
+            <button class="style-btn" data-style="formal"><span class="sbullet"></span>Formal</button>
+            <button class="style-btn" data-style="sporty"><span class="sbullet"></span>Sporty</button>
+            <button class="style-btn" data-style="streetwear"><span class="sbullet"></span>Street</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Preference</label>
+          <div class="seg-control" id="genderPills">
+            <button class="seg-btn active" data-gender="unisex">All</button>
+            <button class="seg-btn" data-gender="male">Men</button>
+            <button class="seg-btn" data-gender="female">Women</button>
+          </div>
+        </div>
+
+        <button class="cta-btn" id="getOutfitsBtn">
+          <span class="cta-text">Get Outfit Ideas</span>
+          <span class="cta-loader" style="display:none">Fetching...</span>
+          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="error-msg" id="errorBanner" style="display:none">
+          <span id="errorText"></span>
+        </div>
+
+        <div class="panel-footer">OpenWeather API</div>
+      </aside>
+
+      <!-- RIGHT PANEL -->
+      <main class="right-panel" id="rightPanel">
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-rings">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+            <div class="ring-label">?</div>
+          </div>
+          <p class="empty-headline">What's it like outside?</p>
+          <p class="empty-sub">Enter your city on the left and we'll<br/>suggest what to wear today.</p>
+        </div>
+
+        <div class="results-wrap" id="resultsWrap" style="display:none">
+
+          <div class="weather-strip">
+            <div class="ws-left">
+              <div class="ws-condition" id="wsCondition">Clear Sky</div>
+              <div class="ws-location" id="wsLocation">London, GB</div>
+              <div class="ws-season" id="wsSeasonPill">Summer</div>
+            </div>
+            <div class="ws-right">
+              <img class="ws-icon" id="wsIcon" src="" alt="" />
+              <div class="ws-stats">
+                <div class="ws-stat"><span class="wsl">Feels like</span><span class="wsv" id="wsFeels">--</span></div>
+                <div class="ws-stat"><span class="wsl">Humidity</span><span class="wsv" id="wsHumidity">--</span></div>
+                <div class="ws-stat"><span class="wsl">Wind</span><span class="wsv" id="wsWind">--</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-bar" id="tipBar" style="display:none"></div>
+
+          <div class="outfits-heading">
+            <h2 class="oh-title">Today's Picks</h2>
+            <span class="oh-sub" id="ohSub"></span>
+          </div>
+
+          <div class="outfits-grid" id="outfitsGrid"></div>
+
+        </div>
+      </main>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

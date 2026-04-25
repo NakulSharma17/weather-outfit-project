@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — Wardrobe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/pages.css" />
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="nav-brand">
+        <div class="nav-mark">W</div>
+        <span class="nav-name">Wardrobe</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+        <a href="app.html" class="nav-cta">Launch App →</a>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="app.html">Launch App</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="section-label">Get In Touch</div>
+      <h1 class="page-title">We'd love to<br/><em>hear from you</em></h1>
+      <p class="page-sub">Questions, feedback, or just want to say hi — drop us a message.</p>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <div class="ci-item">
+          <div class="ci-icon">📧</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">hello@wardrobe.app</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">🐙</div>
+          <div>
+            <div class="ci-label">GitHub</div>
+            <div class="ci-value">github.com/NakulSharma17</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Location</div>
+            <div class="ci-value">Ludhiana, Punjab, India</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">⏰</div>
+          <div>
+            <div class="ci-label">Response Time</div>
+            <div class="ci-value">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap">
+        <!-- Success message (hidden by default) -->
+        <div class="form-success" id="formSuccess" style="display:none">
+          <span class="success-icon">✅</span>
+          <h3>Message Sent!</h3>
+          <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+        </div>
+
+        <div id="formWrap">
+          <h3 class="form-title">Send a Message</h3>
+
+          <div class="field">
+            <label class="field-label">Your Name</label>
+            <input type="text" id="contactName" class="form-input" placeholder="John Doe" />
+            <span class="field-error" id="nameError"></span>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Email Address</label>
+            <input type="email" id="contactEmail" class="form-input" placeholder="john@example.com" />
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Subject</label>
+            <select id="contactSubject" class="form-input form-select">
+              <option value="">Select a topic...</option>
+              <option value="feedback">App Feedback</option>
+              <option value="bug">Report a Bug</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="field-error" id="subjectError"></span>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Message</label>
+            <textarea id="contactMessage" class="form-input form-textarea" placeholder="Tell us what's on your mind..."></textarea>
+            <span class="field-error" id="messageError"></span>
+          </div>
+
+          <button class="btn-primary btn-full" id="submitBtn" onclick="submitForm()">
+            Send Message →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-mark">W</div>
+          <span>Wardrobe</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="app.html">App</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copy">© 2026 Wardrobe. Built with ☕ and OpenWeather API.</div>
+      </div>
+    </footer>
+
+    <script src="js/pages.js"></script>
+  </body>
+</html>

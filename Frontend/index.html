@@ -6,122 +6,197 @@
     <title>Wardrobe — Dress for the Day</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/pages.css" />
   </head>
   <body>
 
-    <div class="split-layout">
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <div class="nav-mark">W</div>
+        <span class="nav-name">Wardrobe</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="app.html" class="nav-cta">Launch App →</a>
+      </div>
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
 
-      <!-- LEFT PANEL -->
-      <aside class="left-panel">
-        <div class="grain"></div>
-
-        <div class="brand">
-          <div class="brand-mark">W</div>
-          <div class="brand-info">
-            <span class="brand-name">Wardrobe</span>
-            <span class="brand-tag">dress for the day</span>
-          </div>
-        </div>
-
-        <div class="live-temp-display">
-          <div class="live-temp-row">
-            <span class="live-temp-number" id="liveTempNumber">--</span>
-            <span class="live-temp-unit">°C</span>
-          </div>
-          <span class="live-temp-city" id="liveTempCity">your city</span>
-        </div>
-
-        <div class="panel-divider"></div>
-
-        <div class="field-group">
-          <label class="field-label">Location</label>
-          <div class="input-row">
-            <input type="text" id="cityInput" class="text-input" placeholder="Enter city name..." autocomplete="off" />
-            <button class="icon-btn" id="locationBtn" title="Use GPS">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Your Style</label>
-          <div class="style-grid" id="stylePills">
-            <button class="style-btn active" data-style="casual"><span class="sbullet"></span>Casual</button>
-            <button class="style-btn" data-style="formal"><span class="sbullet"></span>Formal</button>
-            <button class="style-btn" data-style="sporty"><span class="sbullet"></span>Sporty</button>
-            <button class="style-btn" data-style="streetwear"><span class="sbullet"></span>Street</button>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Preference</label>
-          <div class="seg-control" id="genderPills">
-            <button class="seg-btn active" data-gender="unisex">All</button>
-            <button class="seg-btn" data-gender="male">Men</button>
-            <button class="seg-btn" data-gender="female">Women</button>
-          </div>
-        </div>
-
-        <button class="cta-btn" id="getOutfitsBtn">
-          <span class="cta-text">Get Outfit Ideas</span>
-          <span class="cta-loader" style="display:none">Fetching...</span>
-          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-
-        <div class="error-msg" id="errorBanner" style="display:none">
-          <span id="errorText"></span>
-        </div>
-
-        <div class="panel-footer">OpenWeather API</div>
-      </aside>
-
-      <!-- RIGHT PANEL -->
-      <main class="right-panel" id="rightPanel">
-
-        <div class="empty-state" id="emptyState">
-          <div class="empty-rings">
-            <div class="ring r1"></div>
-            <div class="ring r2"></div>
-            <div class="ring r3"></div>
-            <div class="ring-label">?</div>
-          </div>
-          <p class="empty-headline">What's it like outside?</p>
-          <p class="empty-sub">Enter your city on the left and we'll<br/>suggest what to wear today.</p>
-        </div>
-
-        <div class="results-wrap" id="resultsWrap" style="display:none">
-
-          <div class="weather-strip">
-            <div class="ws-left">
-              <div class="ws-condition" id="wsCondition">Clear Sky</div>
-              <div class="ws-location" id="wsLocation">London, GB</div>
-              <div class="ws-season" id="wsSeasonPill">Summer</div>
-            </div>
-            <div class="ws-right">
-              <img class="ws-icon" id="wsIcon" src="" alt="" />
-              <div class="ws-stats">
-                <div class="ws-stat"><span class="wsl">Feels like</span><span class="wsv" id="wsFeels">--</span></div>
-                <div class="ws-stat"><span class="wsl">Humidity</span><span class="wsv" id="wsHumidity">--</span></div>
-                <div class="ws-stat"><span class="wsl">Wind</span><span class="wsv" id="wsWind">--</span></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tip-bar" id="tipBar" style="display:none"></div>
-
-          <div class="outfits-heading">
-            <h2 class="oh-title">Today's Picks</h2>
-            <span class="oh-sub" id="ohSub"></span>
-          </div>
-
-          <div class="outfits-grid" id="outfitsGrid"></div>
-
-        </div>
-      </main>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="app.html">Launch App</a>
     </div>
 
-    <script src="js/app.js"></script>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="hb-circle hb1"></div>
+        <div class="hb-circle hb2"></div>
+        <div class="hb-circle hb3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">🌤️ Real-time weather styling</div>
+        <h1 class="hero-title">
+          Stop guessing.<br/>
+          <em>Dress for the weather.</em>
+        </h1>
+        <p class="hero-sub">
+          Wardrobe reads today's weather and suggests the perfect outfit for your style — instantly, every day.
+        </p>
+        <div class="hero-actions">
+          <a href="app.html" class="btn-primary">Get My Outfit Today</a>
+          <a href="#how" class="btn-ghost">See How It Works</a>
+        </div>
+        <!-- Live weather preview pill -->
+        <div class="hero-preview">
+          <span class="preview-dot"></span>
+          <span>Live weather data · Updated every search</span>
+        </div>
+      </div>
+      <!-- Floating outfit card mockup -->
+      <div class="hero-card">
+        <div class="hc-top">
+          <span class="hc-emoji">🧥</span>
+          <div>
+            <div class="hc-name">Autumn Layers</div>
+            <div class="hc-cond">12°C · Cloudy · Casual</div>
+          </div>
+        </div>
+        <ul class="hc-items">
+          <li>Long-sleeve shirt</li>
+          <li>Denim jacket</li>
+          <li>Chinos</li>
+          <li>Chelsea boots</li>
+          <li>Light scarf</li>
+        </ul>
+        <div class="hc-tip">💡 Denim jackets add style while blocking light wind.</div>
+      </div>
+    </section>
+
+    <!-- ===== STATS BAR ===== -->
+    <section class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num">20+</span>
+        <span class="stat-label">Outfit Combinations</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Style Categories</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">Live</span>
+        <span class="stat-label">Weather Data</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">Free</span>
+        <span class="stat-label">Always</span>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="how-section" id="how">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three steps to the<br/><em>perfect outfit</em></h2>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">📍</div>
+          <h3 class="step-title">Enter Your City</h3>
+          <p class="step-desc">Type your city name or let us detect your location automatically using GPS.</p>
+        </div>
+        <div class="step-connector">→</div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">👗</div>
+          <h3 class="step-title">Pick Your Style</h3>
+          <p class="step-desc">Choose from Casual, Formal, Sporty, or Streetwear — we remember your preference.</p>
+        </div>
+        <div class="step-connector">→</div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">✨</div>
+          <h3 class="step-title">Get Your Outfits</h3>
+          <p class="step-desc">Receive multiple curated outfit suggestions tailored to today's exact weather.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features-section">
+      <div class="section-label">Why Wardrobe</div>
+      <h2 class="section-title">Everything you need,<br/><em>nothing you don't</em></h2>
+
+      <div class="features-grid">
+        <div class="feature-card fc-large">
+          <div class="fc-icon">🌡️</div>
+          <h3>Real-Time Weather</h3>
+          <p>Pulls live temperature, humidity, wind speed and conditions from OpenWeather API every single search.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">🎨</div>
+          <h3>4 Style Profiles</h3>
+          <p>Casual, Formal, Sporty, Streetwear — each with unique outfit sets.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">🧠</div>
+          <h3>Remembers You</h3>
+          <p>Your style preference is saved so you never have to set it again.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">📍</div>
+          <h3>GPS Support</h3>
+          <p>No typing needed — one tap detects your exact location.</p>
+        </div>
+        <div class="feature-card fc-large">
+          <div class="fc-icon">🌦️</div>
+          <h3>Weather-Smart Suggestions</h3>
+          <p>Handles freezing cold, mild spring, scorching heat, and rainy days — with specific tips for humidity and wind.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2 class="cta-title">Ready to dress smarter?</h2>
+        <p class="cta-sub">Check today's weather and get your outfit in under 10 seconds.</p>
+        <a href="app.html" class="btn-primary btn-large">Open Wardrobe →</a>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-mark">W</div>
+          <span>Wardrobe</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="app.html">App</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copy">
+          © 2026 Wardrobe. Built with ☕ and OpenWeather API.
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/pages.js"></script>
   </body>
 </html>
