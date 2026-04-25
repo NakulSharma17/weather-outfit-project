@@ -21,11 +21,7 @@ const PORT = process.env.PORT || 5000;
 // Allow requests from the frontend (CORS = Cross-Origin Resource Sharing)
 app.use(
   cors({
-    origin: [
-      "https://weather-outfit-project.vercel.app",
-      "http://localhost:5000",
-      "http://localhost:3000"
-    ],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
