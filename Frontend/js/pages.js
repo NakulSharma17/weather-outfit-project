@@ -17,7 +17,7 @@ function submitForm() {
   const subject = document.getElementById("contactSubject");
   const message = document.getElementById("contactMessage");
 
-  if (!name) return; // not on contact page
+  if (!name) return;
 
   let valid = true;
 
@@ -56,15 +56,44 @@ function submitForm() {
 
   if (!valid) return;
 
-  // Simulate form submission (no backend endpoint needed)
+  // Show loading state on button
   const btn = document.getElementById("submitBtn");
   btn.textContent = "Sending...";
   btn.disabled = true;
 
-  setTimeout(() => {
-    document.getElementById("formWrap").style.display = "none";
-    document.getElementById("formSuccess").style.display = "block";
-  }, 1200);
+  // Send to Formspree
+  fetch("https://formspree.io/f/xqewjnyr", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      name:    name.value.trim(),
+      email:   email.value.trim(),
+      subject: subject.value,
+      message: message.value.trim()
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.ok) {
+      // Success — show success message
+      document.getElementById("formWrap").style.display    = "none";
+      document.getElementById("formSuccess").style.display = "block";
+    } else {
+      // Formspree returned an error
+      btn.textContent = "Send Message →";
+      btn.disabled    = false;
+      alert("Something went wrong. Please try again.");
+    }
+  })
+  .catch(() => {
+    // Network error
+    btn.textContent = "Send Message →";
+    btn.disabled    = false;
+    alert("Could not send message. Check your internet connection.");
+  });
 }
 
 // Make submitForm globally accessible
